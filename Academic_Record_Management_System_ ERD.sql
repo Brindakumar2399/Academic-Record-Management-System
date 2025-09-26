@@ -1,39 +1,89 @@
--- ERD Schema Definition: MyBookDB
+-- ========================================
+-- Academic Record Management System ERD
+-- ========================================
 
--- Drop the database if it exists
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'MyBookDB')
-DROP DATABASE MyBookDB
-GO
+-- Departments
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(100),
+    DepartmentChairman VARCHAR(100)
+);
 
--- Create database and switch to it
-CREATE DATABASE MyBookDB
-GO
-USE MyBookDB
-GO
-
--- Users table
-CREATE TABLE Users (
-    UserID INT IDENTITY(1,1) PRIMARY KEY,
-    Email VARCHAR(100) UNIQUE,
+-- Instructors
+CREATE TABLE Instructors (
+    InstructorID INT PRIMARY KEY,
     FirstName VARCHAR(50),
-    LastName VARCHAR(50)
+    LastName VARCHAR(50),
+    Status VARCHAR(50),
+    HireDate DATE,
+    AnnualSalary DECIMAL(10,2),
+    DepartmentID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
 );
 
--- Books table
+-- Courses
+CREATE TABLE Courses (
+    CourseID INT PRIMARY KEY,
+    DepartmentID INT,
+    InstructorID INT,
+    CourseNumber VARCHAR(20),
+    CourseDescription TEXT,
+    CourseUnits INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID),
+    FOREIGN KEY (InstructorID) REFERENCES Instructors(InstructorID)
+);
+
+-- Students
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    EnrollmentDate DATE,
+    GraduationDate DATE
+);
+
+-- Tuition
+CREATE TABLE Tuition (
+    TuitionID INT PRIMARY KEY,
+    PartTimeCost DECIMAL(10,2),
+    FullTimeCost DECIMAL(10,2),
+    PerUnitCost DECIMAL(10,2)
+);
+
+-- Associative Entity: StudentCourses
+CREATE TABLE StudentCourses (
+    StudentCourseID INT PRIMARY KEY,
+    StudentID INT,
+    CourseID INT,
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+-- ========================================
+-- Book Download Subsystem
+-- ========================================
+
+-- Users
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100) UNIQUE
+);
+
+-- Books
 CREATE TABLE Books (
-    BookID INT IDENTITY(1,1) PRIMARY KEY,
-    Name VARCHAR(255) UNIQUE
+    BookID INT PRIMARY KEY,
+    BookName VARCHAR(255)
 );
 
--- Downloads (associative entity for many-to-many)
+-- Downloads (Many-to-Many relationship between Users and Books)
 CREATE TABLE Downloads (
-    DownloadID INT IDENTITY(1,1) PRIMARY KEY,
-    UserID INT FOREIGN KEY REFERENCES Users(UserID),
-    BookID INT FOREIGN KEY REFERENCES Books(BookID),
+    DownloadID INT PRIMARY KEY,
+    UserID INT,
+    BookID INT,
     Filename VARCHAR(255),
-    DownloadDate DATETIME2 DEFAULT GETDATE()
+    DownloadDateTime DATETIME,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (BookID) REFERENCES Books(BookID)
 );
-
--- Indexes for performance
-CREATE INDEX IX_Downloads_UserID ON Downloads(UserID);
-CREATE INDEX IX_Downloads_BookID ON Downloads(BookID);
