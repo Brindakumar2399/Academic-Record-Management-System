@@ -108,6 +108,3 @@ The system supports:
 ---
 
 
----
-
-Do you want me to also **generate a clean digital ERD diagram (image)** for both parts (Academic schema + Book Download schema) so you can embed them directly in your README for GitHub?
