@@ -1,74 +1,72 @@
 # 🎓 Academic Record Management System
 
-An end-to-end SQL project demonstrating **academic data management**, including database schema design, student/instructor queries, and advanced SQL features like **views, stored procedures, and triggers**.
+📌 **Project Overview**
+
+This project demonstrates how academic data can be efficiently managed using **SQL database design and advanced querying techniques**. The system models entities like students, instructors, departments, and academic activity, while also implementing **views, stored procedures, and triggers** for realistic database functionality.
+
+Instead of focusing only on schema creation, this project highlights the **practical SQL skills** required to manage and analyze academic records.
 
 ---
 
-## 📂 Project Structure
+## 📂 Repository Contents
 
-* **`Project 1 _ ERD.sql`** → Database schema for **MyBookDB** (Users, Books, Downloads).
-* **`Project 1.sql`** → SQL queries & advanced functionality for managing **students, instructors, and departments**.
-
----
-
-## 🛠 Features
-
-### **Database Schema (ERD)**
-
-✅ Clean relational design with:
-
-* 👤 **Users** – stores user information
-* 📖 **Books** – catalog of available books
-* ⬇️ **Downloads** – tracks who downloads what
-
-*(Acts as a practice schema to simulate academic datasets)*
+* **Academic_Record_Management_System_ERD.sql** → Schema definition for the database (Users, Books, Downloads as practice schema)
+* **Academic_Record_Management_System.sql** → Collection of SQL queries, advanced operations, and constraints (students, instructors, departments)
 
 ---
 
-### **Core SQL Functionality**
+## 🔄 Database Workflow
 
-* 🔎 **Data Queries**
+### **Database Setup**
 
-  * Students with last names A–K
-  * Instructors hired in 2022
-  * Months attended by each student
-  * Top 20% highest-paid instructors
-  * Active students (not yet graduated)
+* Creation of relational schema (`Users`, `Books`, `Downloads`)
+* Primary keys, foreign keys, and indexing for performance
 
-* 📊 **Advanced Features**
+### **Essential Queries**
 
-  * **Views**: `DepartmentInstructors` – instructors grouped by department
-  * **Stored Procedure**: `spInsertDepartment` – safe department creation
-  * **Trigger**: Salary validation & enforcement
+* Retrieve student full names (A–K last names)
+* List instructors hired in a given year
+* Calculate months attended by each student
+* Identify top 20% highest-paid instructors
+* Find active (non-graduated) students
 
----
+### **Advanced SQL Features**
 
-## ▶️ Getting Started
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/academic-record-management-system.git
-   ```
-
-2. Run the schema setup:
-
-   ```sql
-   -- Execute Project 1 _ ERD.sql
-   ```
-
-3. Execute the SQL exercises:
-
-   ```sql
-   -- Run Project 1.sql
-   ```
+* **View**: `DepartmentInstructors` → maps instructors to their departments
+* **Stored Procedure**: `spInsertDepartment` → safely inserts new departments
+* **Trigger**: Enforces salary rules (valid range & adjustments)
 
 ---
 
-## 📋 Requirements
+## 📊 Key Learning Outcomes
 
-* Microsoft SQL Server / Azure SQL Database
-* Familiarity with SQL concepts (DDL, DML, Views, Procedures, Triggers)
+### **Database KPIs**
+
+* Well-structured ERD with normalized relations
+* Indexed queries for faster lookups
+* Use of DDL (schema) + DML (queries) in tandem
+
+### **Advanced SQL KPIs**
+
+* Data integrity maintained via triggers
+* Scalability through stored procedures
+* Query optimization using indexes
 
 ---
 
+## 📈 Applications
+
+* 🎓 **Universities** → Manage students, instructors, and courses
+* 🏫 **Colleges** → Track enrollments and faculty details
+* 📚 **Libraries** → Adapt schema for book-user interactions
+* 🏢 **Corporate Training** → Record training sessions, instructors, and learners
+
+---
+
+## 🛠️ Tools & Technologies
+
+* **SQL Server / Azure SQL Database** → Execution environment
+* **T-SQL** → Querying, procedures, and triggers
+* **ERD Design** → Database normalization and schema modeling
+
+---
